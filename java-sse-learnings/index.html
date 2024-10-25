@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Example</title>
+</head>
+<body>
+<h1>Server-Sent Events Demo</h1>
+<div id="events"></div>
+
+<script>
+    const eventSource = new EventSource('http://localhost:8080/stream-sse');
+
+    eventSource.onmessage = function(event) {
+        const newEvent = document.createElement('div');
+        newEvent.textContent = event.data;
+        document.getElementById('events').appendChild(newEvent);
+    };
+
+    eventSource.onerror = function() {
+        // refresh button | auto refresh
+        console.log("Error occurred in SSE connection.");
+    };
+</script>
+</body>
+</html>
